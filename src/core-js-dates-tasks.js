@@ -61,7 +61,7 @@ function getDayName(date) {
     'Saturday',
   ];
   const d = new Date(date);
-  return words[d.getDay()];
+  return words[d.getUTCDay()];
 }
 
 /**
@@ -76,9 +76,9 @@ function getDayName(date) {
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
 function getNextFriday(date) {
-  const curDay = date.getDay();
+  const curDay = date.getUTCDay();
   const daysUntilNextFriday = curDay === 5 ? 7 : (5 - curDay + 7) % 7;
-  date.setDate(date.getDate() + daysUntilNextFriday);
+  date.setUTCDate(date.getUTCDate() + daysUntilNextFriday);
   return date;
 }
 
@@ -236,10 +236,10 @@ function getWeekNumberByDate(date) {
 function getNextFridayThe13th(date) {
   const next = new Date(date);
 
-  if (+next.getUTCDay() > 13) next.setMonth(next.getUTCMonth() + 1);
-  next.setDate(13);
+  if (next.getUTCDay() > 13) next.setUTCMonth(next.getUTCMonth() + 1);
+  next.setUTCDate(13);
 
-  while (next.getUTCDay() !== 4) {
+  while (next.getUTCDay() !== 5) {
     next.setUTCMonth(next.getUTCMonth() + 1);
   }
 
